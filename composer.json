@@ -1,0 +1,17 @@
+{
+    "name": "arsalanazhar/ringcentral-webhook-php",
+    "authors": [
+        {
+            "name": "Arsalan Azhar",
+            "email": "arsalan.azhar@nxb.com.pk"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "ArsalanAzhar\\RingCentralWebhook\\": "src/"
+        }
+    }
+}
