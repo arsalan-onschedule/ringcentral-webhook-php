@@ -3,12 +3,12 @@
 namespace ArsalanAzhar\RingCentralWebhook;
 
 use ArsalanAzhar\RingCentralWebhook\Exceptions\RingCentralException;
+use ArsalanAzhar\RingCentralWebhook\Exceptions\RingCentralWebhookNotFound;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 
-class  RingCentralConnector
+class RingCentralConnector
 {
-
     protected $webhookUrl;
     protected $client;
 
@@ -32,14 +32,16 @@ class  RingCentralConnector
 
     public function send($card)
     {
-
-
         $response = $this->client->post($this->webhookUrl, [RequestOptions::JSON => $card]);
 
         $responseBody = json_decode($response->getBody()->getContents());
 
         if ($responseBody->status === "error") {
-            throw new RingCentralException($responseBody);
+            if (strpos($responseBody->error, "Webhook not found!") === 0) { // exception if webhook not found
+                throw new RingCentralWebhookNotFound($responseBody, "Webhook not found");
+            } else { // exception if other error
+                throw new RingCentralException($responseBody);
+            }
         }
 
         return $responseBody;

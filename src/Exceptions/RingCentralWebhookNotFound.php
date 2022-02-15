@@ -1,15 +1,13 @@
 <?php
-
 namespace ArsalanAzhar\RingCentralWebhook\Exceptions;
 
 use Exception;
 
-class RingCentralException extends Exception
+class RingCentralWebhookNotFound extends Exception
 {
     public $response;
 
-
-    public function __construct($response, $message = null, $code = 400)
+    public function __construct($response, $message = null, $code = 404)
     {
         $message = $message ?? $response->message;
         $this->response = $response;
