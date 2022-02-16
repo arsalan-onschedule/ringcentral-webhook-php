@@ -3,7 +3,7 @@ namespace ArsalanAzhar\RingCentralWebhook\Exceptions;
 
 use Exception;
 
-class RingCentralWebhookNotFound extends Exception
+class RingCentralWebhookNotFound extends RingCentralException
 {
     public $response;
 
@@ -11,6 +11,6 @@ class RingCentralWebhookNotFound extends Exception
     {
         $message = $message ?? $response->message;
         $this->response = $response;
-        parent::__construct($response->message, $code);
+        parent::__construct($response, $response->message, $code);
     }
 }
